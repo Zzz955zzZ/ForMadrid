@@ -180,7 +180,17 @@ alias = ["Municipio", "Tipo", "Índice de desajuste", "Puesto (1 = mayor desajus
          "Presión de paro", "Parados que tendrían que cambiar de sector", "Afiliados residentes poco cualificados",
          "Cursos FP presenciales con municipio", "Familias más ofertadas"]
 
-m = folium.Map(location=[40.5, -3.7], zoom_start=9, tiles="OpenStreetMap", control_scale=True)  # sin clave de API
+# Sin mapa base en línea: la herramienta funciona sin conexión y abierta como fichero local
+# (los servidores de teselas de OpenStreetMap rechazan las peticiones desde file://).
+URL_JS = "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"
+URL_CSS = "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"
+m = folium.Map(location=[40.45, -3.7], zoom_start=9, tiles=None, control_scale=True)
+m.default_js = [("leaflet", URL_JS)]       # solo Leaflet (sin jQuery, Bootstrap ni iconos)
+m.default_css = [("leaflet_css", URL_CSS)]
+m.get_root().header.add_child(folium.Element(
+    "<style>.leaflet-container { background: #f4f3ef !important; }</style>"))
+minx, miny, maxx, maxy = g_web.total_bounds
+m.fit_bounds([[miny, minx], [maxy, maxx]])  # encuadre automático a cualquier tamaño de pantalla
 capa = folium.GeoJson(
     json.loads(g_web[["geometry", "color"] + campos].to_json()),
     name=f"Índice de desajuste {ANIO}",
@@ -207,6 +217,19 @@ leyenda = f"""
 m.get_root().html.add_child(folium.Element(leyenda))
 m.get_root().header.add_child(folium.Element("<title>ForMadrid · mapa</title>"))
 m.save(str(MAPA / "ForMadrid_mapa.html"))
+# Incrustar Leaflet (Codigo/vendor/, licencia BSD-2) para que el HTML no dependa de ninguna CDN
+VENDOR = RAIZ / "Codigo" / "vendor"
+html = (MAPA / "ForMadrid_mapa.html").read_text(encoding="utf-8")
+js = (VENDOR / "leaflet.js").read_text(encoding="utf-8")
+css = (VENDOR / "leaflet.css").read_text(encoding="utf-8")
+n_js, n_css = html.count(f'src="{URL_JS}"'), html.count(f'href="{URL_CSS}"')
+assert n_js == 1 and n_css == 1, f"Referencias a Leaflet inesperadas: js={n_js}, css={n_css}"
+html = html.replace(f'<script src="{URL_JS}"></script>', f"<script>{js}</script>")
+html = html.replace(f'<link rel="stylesheet" href="{URL_CSS}"/>', f"<style>{css}</style>")
+# (folium añade un @font-face de iconos que no se usa: no se descarga si no hay iconos)
+assert '<script src="http' not in html and 'rel="stylesheet" href="http' not in html, \
+    "Quedan scripts u hojas de estilo externas en el HTML"
+(MAPA / "ForMadrid_mapa.html").write_text(html, encoding="utf-8")
 print("Mapas guardados en", MAPA)
 
 # Contraste oferta / necesidad (para cifras clave)
