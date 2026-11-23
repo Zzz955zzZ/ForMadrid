@@ -62,4 +62,4 @@ De 7.628 cursos, 2.954 son de teleformación (sin lugar) y, de los presenciales,
 **Sí, como asistente de programación y redacción, como permiten las bases.** Las decisiones de método, la revisión de los datos y los resultados son del equipo, y todo es reproducible desde el código.
 
 **17. ¿Dónde está el código?**
-**En GitHub: github.com/[usuario]/ForMadrid** (README en español, datos, scripts y la herramienta).
+**En GitHub: https://github.com/Zzz955zzZ/ForMadrid** (README en español, datos, scripts y la herramienta).
