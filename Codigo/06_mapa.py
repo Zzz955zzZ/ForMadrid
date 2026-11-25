@@ -120,7 +120,7 @@ fig.text(0.02, 0.01, "Etiquetas: 6 municipios con mayor índice (fiabilidad alta
          "registrado, secciones censales 2019). Elaboración: ForMadrid.", fontsize=6, color=MUTED)
 fig.savefig(MAPA / "mapa_indice_2025.png", facecolor=SURF, bbox_inches="tight")
 # Variante para diapositiva: sin título ni notas (la diapositiva ya los lleva)
-ax.set_title("")
+ax.set_title("", loc="left")  # el título se puso con loc="left"
 for t in list(fig.texts):
     t.remove()
 fig.savefig(MAPA / "mapa_indice_2025_diapositiva.png", facecolor=SURF, bbox_inches="tight", pad_inches=0.05)

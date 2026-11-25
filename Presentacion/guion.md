@@ -1,13 +1,13 @@
 # Guion · ForMadrid (5 minutos)
 
-Presenta: Barbara Cui (asistencia de Daniel pendiente de confirmar; si va, puede responder las preguntas de método y datos). Diapositivas: https://claude.ai/artifact/2tfDS3NesHoVGCTyyRXziT (el guion también está en las notas de cada diapositiva).
+Presenta: Barbara Cui. Daniel asiste y responde las preguntas de método y datos. Diapositivas: https://claude.ai/artifact/2tfDS3NesHoVGCTyyRXziT (el guion también está en las notas de cada diapositiva).
 Ritmo objetivo: ~130 palabras por minuto. Total ≈ 640 palabras. Marcas de tiempo acumuladas.
 
 ---
 
 ## D1 · Portada · 0:00 – 0:30
 
-Buenos días. Somos **ForMadrid**, el equipo de JiaJie Daniel Zheng y Barbara Cui. *[Solo si Daniel no asiste:]* Daniel no ha podido venir hoy y presento yo.
+Buenos días. Somos **ForMadrid**, el equipo de JiaJie Daniel Zheng y Barbara Cui.
 
 Nuestra pregunta es muy concreta: **¿en qué municipios de la Comunidad de Madrid hace más falta reforzar la formación para el empleo?** Para responderla hemos construido un índice de desajuste del mercado laboral para los 179 municipios, con datos abiertos de la Comunidad, y una herramienta para que ayuntamientos y centros de formación lo usen.
 
